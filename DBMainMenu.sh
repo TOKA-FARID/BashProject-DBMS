@@ -7,13 +7,14 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Show Databases") 
-         ./showDB.sh
+           bash ./showDBs.sh
         ;;
-        "Use Database") 
-        pwd
+        "Use Database")
+            
+           pwd
         ;;
         "Create New Database") 
-        pwd
+           pwd
         ;;
         "Delete Database") 
         ;;
