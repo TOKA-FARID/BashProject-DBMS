@@ -1,22 +1,23 @@
 #! /bin/bash
 
-echo "Welcome to Our DataBase Main Menu: "
+echo "Welcome to Our DataBase Main Menu :)"
 PS3='Please enter your choice: '
-options=("Show Databases" "Use Database" "Create New Database" "Delete Database" "Quit")
+
+options=("Show Databases" "Connect Database" "Create New Database" "Delete Database" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
         "Show Databases") 
-           bash ./showDBs.sh
+        . ./showDBs.sh
         ;;
-        "Use Database")
-            
-           pwd
+        "Connect Database") 
+        . ./connectDB.sh
         ;;
-        "Create New Database") 
-           pwd
+        "Create New Database")
+        . ./createDB.sh 
         ;;
         "Delete Database") 
+        . ./deleteDB.sh
         ;;
         "Quit") exit
         ;;
