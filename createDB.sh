@@ -1,5 +1,4 @@
 #! /bin/bash
-pwd
 export dbname
 read -p "please enter the database name " dbname
 flag=0
