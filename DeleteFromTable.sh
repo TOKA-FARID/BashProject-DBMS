@@ -105,7 +105,7 @@ delete_specific_row() {
         if [[ "$row_number" -lt 1 || "$row_number" -gt "$row_count" ]]; then 
             echo "Invalid row number. Please enter a valid row number or 'q' to go back."
             continue 
-        fi    
+        fi  
         break 
     done 
     
