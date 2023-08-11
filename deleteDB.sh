@@ -18,3 +18,5 @@
     read -p "please enter the database name " dbname
   fi
   done
+  
+  . ./DBMainMenu.sh
