@@ -2,7 +2,7 @@
 
 echo "Welcome to Our Tables Main Menu in DataBase: "
 PS3='Please enter your choice: '
-options=("Create Table" "Show Table" "Drop Table" "Insert into Table" "Select from Table" "Delete from Table" "Update Table" "Go back to database menu" "Quit")
+options=("Create Table" "List Table" "Drop Table" "Insert into Table" "Select from Table" "Delete from Table" "Update Table" "Go back to database menu" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -10,22 +10,22 @@ do
             . ./createTable.sh
         ;;
         "List Table")
-            bash ./ListTable.sh
+            . ./ListTable.sh
         ;;
         "Drop Table")
-            bash ./DropTable.sh
+            . ./DropTable.sh
         ;;
         "Insert into Table")
-            bash ./insertTable.sh
+            . ./insertTable.sh
         ;;
 	    "Select from Table")
-	        bash ./selectFromTable.sh
+	        . ./selectFromTable.sh
 	    ;;
         "Delete from Table")
-	        bash ./DeleteFromTable.sh
+	        . ./DeleteFromTable.sh
 	    ;;
 	    "Update Table")
-            bash ./UpdateTable.sh
+            . ./UpdateTable.sh
 	    ;;
         "Go back to database menu")
         ./DBMainMenu.sh
