@@ -1,4 +1,15 @@
 #! /bin/bash
+dbflag=0
+while [ $dbflag -eq 0 ]
+do
+    if [[ -d  ./databases ]] 
+     then
+     dbflag=1
+    else
+     mkdir ./databases
+    fi
+done
+
 
 echo "Welcome to Our DataBase Main Menu :)"
 PS3='Please enter your choice: '
