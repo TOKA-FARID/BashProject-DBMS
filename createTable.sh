@@ -79,6 +79,7 @@ while [ $flag -eq 0 ];do
     touch ./databases/$dbname/$tablename
     echo "The data file is created for this table"
     #. ./TablesMainMenu.sh
+
     numflag=0
 while [ $numflag -eq 0 ];do
     read -p "Enter the number of columns in this table" columns
