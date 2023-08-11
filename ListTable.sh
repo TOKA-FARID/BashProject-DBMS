@@ -4,29 +4,29 @@ shopt -s extglob                #import Advanced Regex
 
 
 ListTablesFun() {
-while true; do
-read -p "Enter your database name: " db_name
-if [[ ! -d "databases/$db_name" ]]; then
-echo "Sorry, Database with name '$db_name' does not exist. "
-read -p "Enter 'q' to quit or 'Enter' to continue: " choice
-   if [[ "$choice" == "q" ]]; then
-            echo "Exiting..."
-            bash ./ListTable.sh
-    fi 
-else
+#while true; do
+#read -p "Enter your database name: " db_name
+#if [[ ! -d "databases/$dbname" ]]; then
+#echo "Sorry, Database with name '$dbname' does not exist. "
+#read -p "Enter 'q' to quit or 'Enter' to continue: " choice
+#  if [[ "$choice" == "q" ]]; then
+#            echo "Exiting..."
+#            bash ./ListTable.sh
+#    fi 
+#else
 read -p "Enter table name to list: " tbl_name
-if [[ -f "databases/$db_name/$tbl_name" ]]; then
-   echo "Sorry, Table '$tbl_name' does not found in database '$db_name'"  
+if [[ -f ./databases/$dbname/$tbl_name ]]; then
+  echo "Contents of $tbl_name: "
+  cat ./databases/$dbname/$tbl_name
 else
-   echo "Contents of $tbl_name: "
-   cat "databases/$db_name/$tbl_name"
-fi
-fi
-done
+  echo "Sorry, Table '$tbl_name' does not found in database '$dbname'" 
+fi 
+#fi
+#done
 }
 
 echo "========= TABLE MENU =========="
-options=("List table" "Exit")
+options=("List table" "Go back to tables menu")
 select opt in "${options[@]}"
 do
 case $opt in
@@ -34,12 +34,14 @@ case $opt in
       ListTablesFun
       break
       ;;
-    "Exit" ) 
+    "Go back to tables menu" ) 
       echo "Exiting..."
-      bash ./TablesMainMenu.sh
+      . ./TablesMainMenu.sh
       ;;
     *)
       echo "Invalid option" 
       ;;
   esac
 done
+
+. ./TablesMainMenu.sh

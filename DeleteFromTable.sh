@@ -13,15 +13,15 @@ delete_table_data() {
     # Display list of tables
     echo "List of Tables:"
     echo "***************"
-    ls databases/$current_database
+    ls ./databases/$dbname
     echo "***************"
-
+ 
     while true; do 
-        read -p "Enter the name of the table you want to delete data from or type 'q' to go back:\n" table_name
+        read -p "Enter the name of the table you want to delete data from or type 'q' to go back: " table_name
         
         if [[ "$table_name" == 'q' ]]; then 
             ./DeleteFromTable.sh 
-        elif [[ ! -f databases/$current_database/$table_name ]]; then 
+        elif [[ ! -f ./databases/$dbname/$table_name ]]; then 
             echo "Invalid table name. Please enter a valid table name or type'q' to go back."
             continue 
         fi 
@@ -30,7 +30,7 @@ delete_table_data() {
     done 
     
     # Check if table is empty
-    if [[ ! -s databases/$current_database/$table_name ]]; then
+    if [[ ! -s ./databases/$dbname/$table_name ]]; then
         echo "Sorry, the table is empty and there is no data to be deleted."
         ./DeleteFromTable.sh
     fi
@@ -38,14 +38,16 @@ delete_table_data() {
     # Display table data
     echo "Table Data:"
     echo "*****************"
-    cat databases/$current_database/$table_name
+    cat ./databases/$dbname/$table_name
     echo "*****************"
-    while true; do
+    dfalg=0
+    while [ $dfalg -eq 0 ]; do
     read -p "Are you sure you want to delete all data from this table? (y/n): " confirm
     if [[ "$confirm" == 'y' || "$confirm" == 'Y' ]]; then
         # Delete table data
-        > databases/$current_database/$table_name
+        > ./databases/$dbname/$table_name
         echo "Table data deleted successfully."
+        dfalg=1
     elif [[ "$confirm" == 'n' || "$confirm" == 'N' ]]; then
         ./DeleteFromTable.sh
     else
@@ -59,7 +61,7 @@ delete_specific_row() {
     # Display list of tables
     echo "List of Tables:"
     echo "****************"
-    ls databases/$current_database
+    ls ./databases/$dbname
     echo "****************"
     
     while true; do 
@@ -67,7 +69,7 @@ delete_specific_row() {
         
         if [[ "$table_name" == 'q' ]]; then 
             return 
-        elif [[ ! -f databases/$current_database/$table_name ]]; then 
+        elif [[ ! -f ./databases/$dbname/$table_name ]]; then 
             echo "Invalid table name. Please enter a valid table name or 'q' to go back."
             continue 
         fi 
@@ -75,19 +77,19 @@ delete_specific_row() {
     done 
     
     # Check if table is empty
-    if [[ ! -s databases/$current_database/$table_name ]]; then
+    if [[ ! -s ./databases/$dbname/$table_name ]]; then
         echo "Sorry, the table is empty and there is no data to be deleted."
         return
     fi
     
     # Display table data and column names
-    column_names=$(head -n 1 databases/$current_database/$table_name)
+    #column_names=$(head -n 1  ./databases/$dbname/$table_name )
     echo "*****************"
     echo "Column Names: $column_names"
     echo "================="
     echo "Table Data:"
     echo "*****************"
-    tail -n +2 databases/$current_database/$table_name | nl -s '. '
+    cat ./databases/$dbname/$table_name | nl -s '. '
     
     while true; do 
         echo "********************************************************"
@@ -100,7 +102,7 @@ delete_specific_row() {
             continue 
         fi 
         
-        row_count=$(tail -n +2 databases/$current_database/$table_name | wc -l)
+        row_count=$(cat ./databases/$dbname/$table_name | wc -l)
         
         if [[ "$row_number" -lt 1 || "$row_number" -gt "$row_count" ]]; then 
             echo "Invalid row number. Please enter a valid row number or 'q' to go back."
@@ -108,13 +110,14 @@ delete_specific_row() {
         fi  
         break 
     done 
-    
-    while true; do
+    drflag=0
+    while [ $drflag -eq 0 ]; do
     read -p "Are you sure you want to delete this row? (y/n): " confirm
     
     if [[ "$confirm" == 'y' || "$confirm" == 'Y' ]]; then
-        sed -i "$((row_number+1))d" databases/$current_database/$table_name 
+        sed -i "$((row_number))d" ./databases/$dbname/$table_name 
         echo "Row deleted successfully."
+        drflag=1
     elif [[ "$confirm" == 'n' || "$confirm" == 'N' ]]; then
         ./DeleteFromTable.sh
     else
@@ -130,7 +133,7 @@ while true; do
   case $choice in  
     1) delete_table_data ;;
     2) delete_specific_row ;;
-    3) ./TablesMainMenu.sh ;;
+    3) . ./TablesMainMenu.sh ;;
     *) echo "Invalid choice. Please try again.";;  
   esac  
 done

@@ -1,6 +1,6 @@
 #! /bin/bash
 flag=0
-
+pkFlag=0
 function checkColumnName {
 
     local columnflag=0
@@ -79,12 +79,13 @@ while [ $flag -eq 0 ];do
     touch ./databases/$dbname/$tablename
     echo "The data file is created for this table"
     #. ./TablesMainMenu.sh
+
     numflag=0
 while [ $numflag -eq 0 ];do
-    read -p "Enter the number of columns in this table" columns
-    if [[ "$columns" = +([1-9])*([0-9]) ]]; then
+    read -p "Enter the number of columns in this table : " columns
+    if [[ $columns =~ ^[0-9]+$ ]]; then
       for (( i = 1; i <= $columns; i++ )); do
-      read -p "Enter the column name " columnname 
+         read -p "Enter the column name " columnname 
 
       checkColumnExist " $columnname " 
         
@@ -92,21 +93,25 @@ while [ $numflag -eq 0 ];do
       echo -n $columnname":" >> ./databases/$dbname/$tablename-metadata
       datatypeflag=0
       read -p "Choose column's datatype String(s) Number(n): (s/n) " datatype
-      while [ true ]; do
-      case $datatype in
-        n) 
-        datatype="int";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
-        break;;
-        s) 
-        datatype="str";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
-        break;;
-        *) 
-        echo "Wrong Choice" ;;
-      esac
-      done
-     if ! [[ $pkFlag ]]; then
+        while [ $datatypeflag -eq 0 ]; do
+      
+          if [[ "$datatype" == *n* ]]; then
+             datatype="int";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
+             datatypeflag=1
+        
+            elif [[ "$datatype" == *s* ]]; then
+             datatype="str";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
+             datatypeflag=1
+            else
+             echo "Wrong Choice"
+             read -p "Choose column's datatype String(s) Number(n): (s/n) " datatype
+        
+            fi
+        done
+
+      if [[ $pkFlag -eq 0 ]]; then
             while [ true ]; do
-                read -p "Is it Primary-Key (PK): (y/n)" pk;
+                read -p "Is it Primary-Key (PK): (y/n)" pk
                 case "$pk" in
                     "y" | "Y" ) 
                     pk="yes"
