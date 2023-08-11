@@ -185,7 +185,7 @@ done
 # Inform the user that a new column has been created successfully in the tablename file
 echo "A new column has been created successfully in the $tablename."
 fi
-else 
+else
   echo "Invalid choice. Please enter 'data', 'metadata', or 'q' to return back."
 fi
 done
