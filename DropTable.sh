@@ -29,20 +29,20 @@ drop_table () {
   echo "$DATABASES"
   # Loop until the user enters a valid database name or 'q' to go back
   while true; do
-    read -p "Enter the name of the database you want to connect to or 'q' to go back: " db_name
+    #read -p "Enter the name of the database you want to connect to or 'q' to go back: " db_name
     # Check if the user wants to go back
-    if [[ "$db_name" = "q" || "$db_name" = "Q" ]]; then
-      return
-    fi
+    #if [[ "$db_name" = "q" || "$db_name" = "Q" ]]; then
+     # return
+    #fi
     # Check if the database name is valid
-    if [[ ! -d "$DB_PATH/$db_name" ]]; then
+    if [[ ! -d ./$DB_PATH/$dbname ]]; then
       echo "Invalid database name. Please try again."
     else
       break
     fi
   done  
   # Get the list of tables in the database
-  tables=$(ls $DB_PATH/$db_name)
+  tables=$(ls ./$DB_PATH/$dbname)
   # Check if there are any tables
   if [[ -z "$tables" ]]; then
     echo "There are no tables in the database."
@@ -59,7 +59,7 @@ drop_table () {
       return
     fi  
     # Check if the table name is valid
-    if [[ ! -f "$DB_PATH/$db_name/$tbl_name" ]]; then
+    if [[ ! -f ./$DB_PATH/$dbname/$tbl_name ]]; then
       echo "Invalid table name. Please try again."
     else
       break
@@ -70,7 +70,9 @@ drop_table () {
   # Check if the user confirmed
   if [[ "$confirm" = "y" || "$confirm" = "Y" ]]; then
     # Drop the table from the database by deleting the file
-    rm $DB_PATH/$db_name/$tbl_name
+    rm  ./$DB_PATH/$dbname/$tbl_name
+    rm  ./$DB_PATH/$dbname/$tbl_name-metadata
+
     echo "The table $tbl_name has been deleted from the database."
   else
     echo "The table $tbl_name has not been deleted from the database."
@@ -88,4 +90,4 @@ while true; do
   esac  
 done  
 
-echo "You have returned to the main menu."
+#echo "You have returned to the main menu."
