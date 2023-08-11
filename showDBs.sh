@@ -40,12 +40,12 @@ options=("show all databases" "show specefic database")
     case $opt in
         "show all databases")
             ShowAllDBFun
-            bash ./DBMainMenu.sh
+            . ./DBMainMenu.sh
             
             ;;
         "show specefic database")
             ShowSpecificDBFun
-            
+            . ./DBMainMenu.sh
             ;;
         *) echo "invalid option $REPLY please try again" 
            echo "list all databases"
