@@ -82,7 +82,7 @@ while [ $flag -eq 0 ];do
 
     numflag=0
 while [ $numflag -eq 0 ];do
-    read -p "Enter the number of columns in this table" columns
+    read -p "Enter the number of columns in this table : " columns
     if [[ "$columns" = +([1-9])*([0-9]) ]]; then
       for (( i = 1; i <= $columns; i++ )); do
       read -p "Enter the column name " columnname 
@@ -93,18 +93,21 @@ while [ $numflag -eq 0 ];do
       echo -n $columnname":" >> ./databases/$dbname/$tablename-metadata
       datatypeflag=0
       read -p "Choose column's datatype String(s) Number(n): (s/n) " datatype
-      while [ true ]; do
-      case $datatype in
-        n) 
-        datatype="int";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
-        break;;
-        s) 
-        datatype="str";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
-        break;;
-        *) 
-        echo "Wrong Choice" ;;
-      esac
-      done
+        while [ $datatypeflag -eq 0 ]; do
+      
+          if [[ "$datatype" == *n* ]]; then
+             datatype="int";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
+             datatypeflag=1
+        
+            elif [[ "$datatype" == *s* ]]; then
+             datatype="str";  echo -n $datatype":"  >> ./databases/$dbname/$tablename-metadata
+             datatypeflag=1
+            else
+             echo "Wrong Choice"
+             read -p "Choose column's datatype String(s) Number(n): (s/n) " datatype
+        
+            fi
+        done
      if ! [[ $pkFlag ]]; then
             while [ true ]; do
                 read -p "Is it Primary-Key (PK): (y/n)" pk;
