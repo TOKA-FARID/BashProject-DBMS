@@ -1,6 +1,6 @@
 #! /bin/bash
 flag=0
-
+pkFlag=0
 function checkColumnName {
 
     local columnflag=0
@@ -83,9 +83,9 @@ while [ $flag -eq 0 ];do
     numflag=0
 while [ $numflag -eq 0 ];do
     read -p "Enter the number of columns in this table : " columns
-    if [[ "$columns" = +([1-9])*([0-9]) ]]; then
+    if [[ $columns =~ ^[0-9]+$ ]]; then
       for (( i = 1; i <= $columns; i++ )); do
-      read -p "Enter the column name " columnname 
+         read -p "Enter the column name " columnname 
 
       checkColumnExist " $columnname " 
         
@@ -108,9 +108,10 @@ while [ $numflag -eq 0 ];do
         
             fi
         done
-     if ! [[ $pkFlag ]]; then
+
+      if [[ $pkFlag -eq 0 ]]; then
             while [ true ]; do
-                read -p "Is it Primary-Key (PK): (y/n)" pk;
+                read -p "Is it Primary-Key (PK): (y/n)" pk
                 case "$pk" in
                     "y" | "Y" ) 
                     pk="yes"
