@@ -1,4 +1,10 @@
 #!/bin/bash
+export LC_COLLATE=C             # Terminal Case Sensitive
+shopt -s extglob                #import Advanced Regex
+
+echo "********************************"
+echo "..Here You Can Delete From Tables.."
+echo "********************************"
 
 # Function to display the delete from table menu
 display_menu() {
@@ -39,6 +45,7 @@ delete_table_data() {
     echo "Table Data:"
     echo "*****************"
     cat ./databases/$dbname/$table_name
+    echo -e "\n"
     echo "*****************"
     dfalg=0
     while [ $dfalg -eq 0 ]; do
@@ -90,9 +97,9 @@ delete_specific_row() {
     echo "Table Data:"
     echo "*****************"
     cat ./databases/$dbname/$table_name | nl -s '. '
-    
+    echo "*****************************"
+
     while true; do 
-        echo "********************************************************"
         read -p "Enter the number of the row you want to delete or 'q' to go back: " row_number
         
         if [[ "$row_number" == 'q' ]]; then 

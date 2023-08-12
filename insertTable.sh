@@ -1,4 +1,10 @@
 #! /bin/bash
+export LC_COLLATE=C             # Terminal Case Sensitive
+shopt -s extglob                #import Advanced Regex
+
+echo "********************************"
+echo "..Here You Can Insert Into Tables.."
+echo "********************************"
 
 function checkIfRedundantData {
   numColumns=$(wc -l  < ./databases/$dbname/$tablename)
@@ -21,13 +27,13 @@ function checkIfRedundantData {
 
 }
 tableflag=0
-read -p "please enter the table name " tablename
+read -p "please enter the table name: " tablename
 while [ $tableflag -eq 0 ]
 do
   if [[ -z $tablename ]]
      then
-      echo you must enter the table name to insert data into it
-     read -p "please enter the table name " tablename
+      echo "you must enter the table name to insert data into it"
+     read -p "please enter the table name: " tablename
 
     elif [[ -f ./databases/$dbname/$tablename ]]
      then
@@ -59,8 +65,8 @@ do
                      datatypeflag=1
                     else
                      isnumber=1
-                     echo please enter only numbers 
-                     read -p "please enter valid data of the $columnname column " data
+                     echo "please enter only numbers"
+                     read -p "please enter valid data of the $columnname column: " data
                       echo  "-----------------------------------------------------------"
                     fi
                    # echo isnumber= $isnumber
@@ -73,8 +79,8 @@ do
                          datatypeflag=1
                         else
                          isstring=1
-                         echo please enter only caharacters
-                         read -p "please enter valid data of the $columnname column " data 
+                         echo "please enter only characters"
+                         read -p "please enter valid data of the $columnname column: " data 
                           echo  "-----------------------------------------------------------"
                         fi
                         #echo isstring= $isstring
@@ -93,8 +99,8 @@ do
                     #result=$(checkIfRedundantData "$REPLY" "$columnnumber")
                     if [[ -z $data ]]
                      then 
-                     echo This column is the primary key you must insert value
-                     read -p "please enter valid data of the $columnname column " data
+                     echo "This column is the primary key you must insert value"
+                     read -p "please enter valid data of the $columnname column: " data
                      break
                     fi
                     
@@ -121,8 +127,8 @@ do
                             done 
                             if [[ $found -eq 1 ]]
                                 then
-                                 echo This column is the primary key and it is a redundant data
-                                 read -p "please enter a uniqe data of the $columnname column " data
+                                 echo "This column is the primary key and it is a redundant data"
+                                 read -p "please enter a uniqe data of the $columnname column: " data
                                  echo  "-----------------------------------------------------------"
                             else
                               if [[ "$isnumber" == "0" || "$isstring" == "0" ]]
@@ -134,7 +140,7 @@ do
 
                        
                     else
-                     echo insert data
+                     echo "insert data"
                      echo -n $data":"  >> ./databases/$dbname/$tablename
                      pkFlag=1
 
@@ -154,8 +160,8 @@ do
 
     else
 
-     echo This table name not exists
-     read -p "please enter an existing table name " tablename  
+     echo "This table name not exists"
+     read -p "please enter an existing table name: " tablename  
     fi
 
 done

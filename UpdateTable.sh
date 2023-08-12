@@ -1,7 +1,10 @@
 #!/bin/bash
+export LC_COLLATE=C             # Terminal Case Sensitive
+shopt -s extglob                #import Advanced Regex
 
-# Display the tables in the database
-echo "..Here You Can Update Your Tables.."
+echo "********************************"
+echo "..Here You Can Update Tables.."
+echo "********************************"
 echo "Tables in the $dbname database:"
 ls ./databases/$dbname/$tablename
 
@@ -21,6 +24,7 @@ while true; do
 # Ask the user which table they want to update
 echo "Which table do you want to update?"
 ls ./databases/$dbname/$tablename
+echo "============================"
 read tablename
 
 # Check if the table_choice variable is empty

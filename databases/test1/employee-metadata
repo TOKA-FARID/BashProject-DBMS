@@ -1,2 +1,2 @@
-pk:name
-int:string:string:string:string
+pk:id
+int:string:string:string:string:int

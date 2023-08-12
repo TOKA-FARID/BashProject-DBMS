@@ -1,8 +1,13 @@
 #!/bin/bash
+export LC_COLLATE=C             # Terminal Case Sensitive
+shopt -s extglob                #import Advanced Regex
 
-echo "Welcome to Our Tables Main Menu in DataBase: "
+echo "*************************************"
+echo "Welcome to Our Tables Main Menu :)"
+echo "*************************************"
+
 PS3='Please enter your choice: '
-options=("Create Table" "List Table" "Drop Table" "Insert into Table" "Select from Table" "Delete from Table" "Update Table" "Go back to database menu" "Quit")
+options=("Create Table" "List Table" "Drop Table" "Insert into Table" "Select from Table" "Delete from Table" "Update Table" "Go back to database main menu" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -27,7 +32,7 @@ do
 	    "Update Table")
             . ./UpdateTable.sh
 	    ;;
-        "Go back to database menu")
+        "Go back to database main menu")
         ./DBMainMenu.sh
         ;;
         "Quit") exit

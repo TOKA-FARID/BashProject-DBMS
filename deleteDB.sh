@@ -1,21 +1,35 @@
 #! /bin/bash
- read -p "please enter the database name " dbname
+export LC_COLLATE=C             # Terminal Case Sensitive
+shopt -s extglob                #import Advanced Regex
+
+echo "********************************"
+echo "..Here You Can Delete Databases.."
+echo "********************************"
+echo "These are databases: "
+ls ./databases/
+
+ read -p "please enter the database name: " dbname
  flag=0
   while [ $flag -eq 0 ];do
  
-  if [[ -d ./databases/$dbname ]]
+  if [[ -z $dbname || $dbname == *" "* ]]
+  then
+  echo "you must enter the database name"
+  read -p "please enter the database name or type 'q' to return back: " dbname
+
+  elif [[ -d ./databases/$dbname ]]
   then
   rm -r ./databases/$dbname
-  echo this database is deleted 
+  echo "This database has benn deleted successfully"
+
   flag=1
-  elif [[ -z $dbname ]]
+  elif [[ $dbname == 'q' ]]
   then
-  echo you must enter the database name
-  read -p "please enter the database name " dbname
+    ./DBMainMenu.sh
 
   else
-    echo this database name not exists
-    read -p "please enter the database name " dbname
+    echo "this database name is not exist"
+    read -p "please enter the database name or type 'q' to return back: " dbname
   fi
   done
   

@@ -1,4 +1,7 @@
 #! /bin/bash
+export LC_COLLATE=C             # Terminal Case Sensitive
+shopt -s extglob                #import Advanced Regex
+
 dbflag=0
 while [ $dbflag -eq 0 ]
 do
@@ -10,8 +13,9 @@ do
     fi
 done
 
-
+echo "*************************************"
 echo "Welcome to Our DataBase Main Menu :)"
+echo "*************************************"
 PS3='Please enter your choice: '
 
 options=("Show Databases" "Connect Database" "Create New Database" "Delete Database" "Quit")

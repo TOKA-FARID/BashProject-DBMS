@@ -2,22 +2,17 @@
 export LC_COLLATE=C             #Terminal Case Sensitive
 shopt -s extglob                #import Advanced Regex
 
+echo "********************************"
+echo "..Here You Can List Tables.."
+echo "********************************"
 
 ListTablesFun() {
-#while true; do
-#read -p "Enter your database name: " db_name
-#if [[ ! -d "databases/$dbname" ]]; then
-#echo "Sorry, Database with name '$dbname' does not exist. "
-#read -p "Enter 'q' to quit or 'Enter' to continue: " choice
-#  if [[ "$choice" == "q" ]]; then
-#            echo "Exiting..."
-#            bash ./ListTable.sh
-#    fi 
-#else
 read -p "Enter table name to list: " tbl_name
 if [[ -f ./databases/$dbname/$tbl_name ]]; then
   echo "Contents of $tbl_name: "
+  echo "================================"
   cat ./databases/$dbname/$tbl_name
+  echo -e "\n"
 else
   echo "Sorry, Table '$tbl_name' does not found in database '$dbname'" 
 fi 
