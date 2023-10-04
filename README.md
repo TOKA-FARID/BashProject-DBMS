@@ -8,7 +8,6 @@ Welcome to the Bash Shell Script Database Management System (DBMS)! This project
 - Installation
 - Usage
 - Contributing
-- License
 
 ## Introduction :bulb:
 This DBMS is designed to provide a simple and intuitive interface for managing databases directly from your terminal. It's perfect for small projects, learning purposes, or simply managing data without the overhead of a full-fledged DBMS.
